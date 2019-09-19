@@ -1,0 +1,38 @@
+import casa.*
+import cosas.*
+
+describe "La casa" {
+	fixture {
+		casaDePepeYJulian.comprar(tiraDeAsado)
+		casaDePepeYJulian.comprar(paqueteDeFideos)
+		casaDePepeYJulian.comprar(plancha)
+		casaDePepeYJulian.comprar(cama)
+		casaDePepeYJulian.comprar(heladera)
+	}
+	
+	test "gasto en comida" {
+		assert.equals(400, casaDePepeYJulian.gastoEnComida())
+	}
+	
+	test "hay electrodomésticos baratos" {
+		assert.that(casaDePepeYJulian.hayElectrodomesticosBaratos())
+		
+		casaDePepeYJulian.tirar(plancha)
+		assert.notThat(casaDePepeYJulian.hayElectrodomesticosBaratos())
+	}
+	
+	test "precios de electrodomésticos" {
+		assert.equals([1200, 20000], casaDePepeYJulian.preciosDeElectrodomesticos())
+	}
+	
+	test "nivel en aumento" {
+		assert.that(casaDePepeYJulian.nivelEnAumento())
+		
+		casaDePepeYJulian.comprar(botellaSalsaDeTomates)
+		assert.notThat(casaDePepeYJulian.nivelEnAumento())
+	}
+	
+	test "primera comida" {
+		assert.equals(tiraDeAsado, casaDePepeYJulian.primeraComidaComprada())
+	}
+}

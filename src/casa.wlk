@@ -7,6 +7,10 @@ object casaDePepeYJulian {
 		return cosas.add(cosa)	
 	}
 	
+	method tirar(cosa) {
+		cosas.remove(cosa)
+	}
+	
 	method cantidadDeCosasCompradas() {
 		return cosas.size()
 	}
@@ -52,14 +56,18 @@ object casaDePepeYJulian {
 	}
 	
 	method hayElectrodomesticosBaratos() {
-		return cosas.filter({cosa => cosa.esElectrodomestico()}).any({electro => electro.precio() <= 3000})
+		return self.electrodomesticosComprados().any({electro => electro.precio() <= 3000})
 	}
 	
 	method preciosDeElectrodomesticos() {
-		return cosas.filter({cosa => cosa.esElectrodomestico()}.map({electro => electro.precio()}))
+		return self.electrodomesticosComprados().map{electro => electro.precio()}
 	}
 	
 	method nivelEnAumento() {
 		return cosas.last().precio() >= (cosas.first().precio() * 2)
+	}
+	
+	method primeraComidaComprada() {
+		return cosas.find { c => c.esComida() }
 	}
 }
